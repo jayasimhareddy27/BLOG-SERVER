@@ -41,7 +41,10 @@ if ( process.env.NODE_ENV == "production"){
     })
 }*/
 
-
+app.use(Express.static('public'))
+app.get('/', (req, res) => {
+    res.sendFile('index.html', {root: path.join(__dirname, 'public')});
+})
 
 const CONNECTION_URL =process.env.CONNECTION_URL;
 const PORT = process.env.PORT|| 5000;
@@ -49,3 +52,5 @@ const PORT = process.env.PORT|| 5000;
 mongoose.connect(CONNECTION_URL,( { useNewUrlParser: true, useUnifiedTopology: true }))
 .then(()=>app.listen(PORT,()=>console.log(`listing to port:${PORT}`)))
 .catch((err)=>console.log(err));
+
+export default app
